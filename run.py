@@ -19,6 +19,28 @@ SURVEY = SHEET.worksheet("survey_responses")
 EMAIL_SHEET = SHEET.worksheet("email_addresses")
 
 
+class MenuOptions:
+    def __init__(self, index, option, action_message, execute_action):
+        self.index = index
+        self.option = option
+        self.action_message = action_message
+        self.execute_action = execute_action
+
+    def display_menu_options(self):
+        return f"{self.index} - {self.option}"
+ 
+    def run_select_option(self):  # Renamed from run_selected_option to match your usage
+        print(self.action_message)
+        return self.execute_action() 
+MENU [
+    MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
+
+def display_title(title):
+    print(title)
+
 def display_main_menu():
     display_title("MENU")
     display_options(MAIN_MENU)
@@ -45,22 +67,3 @@ def get_user_choice(options):
         except Exception as e:
             # Handle any unexpected errors
             print(f"An unexpected error occurred: {e}")
-
-class MenuOptions:
-    def __init__(self, index, option, action_message, execute_action):
-        self.index = index
-        self.option = option
-        self.action_message = action_message
-        self.execute_action = execute_action
-
-    def display_menu_options(self):
-        return f"{self.index} - {self.option}"
-
-    def run_selected_option(self):
-        print(self.action_message)
-        return self.execute_action() 
-MAIN_MENU [
-    MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
-    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
-    MenuOptions(3, "Exit", "Exiting Program...", quit),
-]
