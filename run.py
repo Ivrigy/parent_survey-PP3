@@ -46,4 +46,16 @@ def get_user_choice(options):
             # Handle any unexpected errors
             print(f"An unexpected error occurred: {e}")
 
+class MenuOptions:
+    def __init__(self, index, option, action_message, execute_action):
+        self.index = index
+        self.option = option
+        self.action_message = action_message
+        self.execute_action = execute_action
 
+    def display_menu_options(self):
+        return f"{self.index} - {self.option}"
+
+    def run_selected_option(self):
+        print(self.action_message)
+        return self.execute_action() 
