@@ -32,11 +32,24 @@ class MenuOptions:
     def run_select_option(self):  # Renamed from run_selected_option to match your usage
         print(self.action_message)
         return self.execute_action() 
-MENU [
+
+def access_survey():
+    print("Survey accessed.")
+
+def display_analysis_menu():
+    print("Analysis menu displayed.")
+
+def quit():
+    print("Goodbye!")
+    exit()
+
+MAIN_MENU = [
     MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
     MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
     MenuOptions(3, "Exit", "Exiting Program...", quit),
 ]
+
+
 
 def display_title(title):
     print(title)
@@ -67,3 +80,8 @@ def get_user_choice(options):
         except Exception as e:
             # Handle any unexpected errors
             print(f"An unexpected error occurred: {e}")
+
+
+
+if __name__ == "__main__":
+    display_main_menu()
