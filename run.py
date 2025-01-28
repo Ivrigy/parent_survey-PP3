@@ -32,16 +32,18 @@ def display_options(menu_options):
 def get_user_choice(options):
     while True:
         try:
-          user_input = input(f"\nPlease enter your choice (1-{len(options)}):\n").strip() #removing empty spaces
-        if user_input.isdigit():
-            choice = int(user_input)
-        if 1<= choice <= len(options):
-            return choice
-            
-        else:
-            print(f"Error: Choose a number between 1 and {len(options)}.")
-    else:
-        print("Enter a valid number")
+            user_input = input(f"\nPlease enter your choice (1-{len(options)}):\n").strip() 
+            if user_input.isdigit(): 
+                choice = int(user_input)
+                if 1 <= choice <= len(options):
+                    return choice
+                else:
+                    print(f"Error: Choose a number between 1 and {len(options)}.")
+            else:
+                print("Enter a valid number")
+        except Exception as e:
+            # Handle any unexpected errors
+            print(f"An unexpected error occurred: {e}")
 
 
 
