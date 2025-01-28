@@ -59,3 +59,8 @@ class MenuOptions:
     def run_selected_option(self):
         print(self.action_message)
         return self.execute_action() 
+MAIN_MENU [
+    MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
