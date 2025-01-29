@@ -27,7 +27,7 @@ class MenuOptions:
         self.execute_action = execute_action
 
     def display_menu_options(self):
-        return f"{self.index} - {self.option}"
+        return f"\033[94m{self.index}\033[0m - {self.option}"
  
     def run_select_option(self):  # Renamed from run_selected_option to match your usage
         print(self.action_message)
@@ -68,7 +68,7 @@ def display_options(menu_options):
 def get_user_choice(options):
     while True:
         try:
-            user_input = input(f"\nPlease enter your choice (1-{len(options)}):\n").strip() 
+            user_input = input(f"\nPlease enter your choice (\033[94m1-{len(options)}\033[0m):\n").strip() 
             if user_input.isdigit(): 
                 choice = int(user_input)
                 if 1 <= choice <= len(options):
