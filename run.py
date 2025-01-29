@@ -52,7 +52,7 @@ MAIN_MENU = [
 
 
 def display_title(title):
-    print(title)
+    print(f"\n*** {title} ***\n")
 
 def display_main_menu():
     display_title("MENU")
