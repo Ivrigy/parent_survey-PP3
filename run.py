@@ -74,12 +74,12 @@ def get_user_choice(options):
                 if 1 <= choice <= len(options):
                     return choice
                 else:
-                    print(f"Error: Choose a number between 1 and {len(options)}.")
+                    print(f"\033[91mError: Choose a number between 1 and {len(options)}.\033[0m")
             else:
-                print("Enter a valid number")
+                print("\033[91mEnter a valid number.\033[0m")
         except Exception as e:
             # Handle any unexpected errors
-            print(f"An unexpected error occurred: {e}")
+            print(f"\033[91mAn unexpected error occurred: {e}\033[0m")
 
 
 
