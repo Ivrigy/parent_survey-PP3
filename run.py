@@ -54,10 +54,8 @@ MAIN_MENU = [
     MenuOptions(3, "Exit", "Exiting Program...", quit),
 ]
 
-
-
 def display_title(title):
-    print(f"\n*** {title} ***\n")
+    print(f"\n***** {title} *****".center(80) + "\n")
 
 def display_main_menu():
     display_title("MENU")
@@ -68,7 +66,8 @@ def display_main_menu():
 
 def display_options(menu_options):
     for option in menu_options:
-        print(option.display_menu_options())
+        print(f"\033[94m{option.index}\033[0m - {option.option}".ljust(40))
+        print()
 
 def get_user_choice(options):
     while True:
