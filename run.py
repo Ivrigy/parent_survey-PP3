@@ -39,7 +39,24 @@ class MenuOptions:
         return self.execute_action() 
 
 def access_survey():
-    print("Survey accessed.")
+    display_title("***** SHARE YOUR EXPERIENCE *****".center(80))
+    survey_responses = {}
+
+for question, answer in QUESTION_OPTIONS.items():
+    print(f"\n{question}")
+    for index, answer in enumerate(answers, 1):
+        print(f"{index} - {answer}")
+
+        choice = get_user_choice(answers)
+        survey_responses[question] = answers[choice - 1]
+    print("\nYour feedback matters!\n".center(80))
+    for question, selected_answer in survey_responses.items():
+        print(question)
+        print((f"  --> {selected_answer.upper()}\n"))
+        update_worksheet(survey_responses,SURVEY)
+
+
+    
 
 def display_analysis_menu():
     print("Analysis menu displayed.")
