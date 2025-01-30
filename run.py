@@ -14,13 +14,16 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open ('parent_survey')
-
-SURVEY = SHEET.worksheet("survey_responses")
-EMAIL_SHEET = SHEET.worksheet("email_addresses")
+try:
+    CREDS = Credentials.from_service_account_file('creds.json')
+    SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+    GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+    SHEET = GSPREAD_CLIENT.open('parent_survey')
+    SURVEY = SHEET.worksheet("survey_responses")
+    EMAIL_SHEET = SHEET.worksheet("email_addresses")
+except Exception as e:
+    print(f"\033[91mError connecting to Google Sheets: {e}\033[0m")
+    exit()
 
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
