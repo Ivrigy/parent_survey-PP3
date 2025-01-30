@@ -26,6 +26,28 @@ except Exception as e:
     print(f"\033[91mError connecting to Google Sheets: {e}\033[0m")
     exit()
 
+# Defining survey questions and answers
+QUESTION_OPTIONS = {
+    "How satisfied are you with your current management of day to day life?": [
+        "Very satisfied", "Satisfied", "Neither", "Dissatisfied", "Very Dissatisfied"
+    ],
+    "How satisfied are you with the communication to your ex-partner?": [
+        "Very satisfied", "Satisfied", "Neither", "Dissatisfied", "Very Dissatisfied"
+    ],
+    "How easy is for you to seek for additional help?": [
+        "Very easy", "Easy", "Neither", "Difficult", "Very Difficult"
+    ],
+    "How easy is for you to generate income and provide for your child/children?": [
+        "Very easy", "Easy", "Neither", "Difficult", "Very Difficult"
+    ],
+    "How would you rate your current mental health?": [
+        "Excellent", "Good", "Average", "Bad", "Terrible"
+    ],
+    "How would you rate your current physical health?": [
+        "Excellent", "Good", "Average", "Bad", "Terrible"
+    ]
+}
+
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -179,20 +201,7 @@ def get_user_choice(options):
             # Handle any unexpected errors
             print(f"\033[91mAn unexpected error occurred: {e}\033[0m")
 
-QUESTION_OPTIONS = {
-    "How satisfied are you with your current management of day to day life?":[
-        "Very satisfied", "Satisfied", "Neither", "Dissatisfied", "Very Dissatisfied"],
-    "How satisfied are you with the communication to your ex-partner?":[
-      "Very satisfied", "Satisfied", "Neither", "Dissatisfied", "Very Dissatisfied"],
-    "How easy is for you to seek for additional help?":[
-      "Very easy", "Easy", "Neither", "Difficult", "Very Difficult"],
-     "How easy is for you to generate income and provide for your child/children?":[
-        "Very easy", "Easy", "Neither", "Difficult", "Very Difficult"],
-    "How would you rate your current mental health?":[
-        "Excellent", "Good", "Average", "Bad", "Terrible"],
-     "How would you rate your current physical health?":[
-         "Excellent", "Good", "Average", "Bad", "Terrible" ]  
-}
+
 
 MAIN_MENU = [
     MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
