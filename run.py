@@ -158,12 +158,12 @@ def summary_statistic():
         print(f"{'-' * 80}")
         for answer, percentage in answers.items():
             print(f"   --> {answer}: {percentage} %")
-    post_survey_action()
+    post_survey_clear_action()
 
 # Menu that comes after survey 
 def post_survey_action():
     print("." * 80)
-    print("What would you like to do next? Choose option:")
+    print("\nWhat would you like to do next? Choose option:\n")
     display_options(POST_SURVEY_MENU)
     choice = get_user_choice(POST_SURVEY_MENU)
     select_option = POST_SURVEY_MENU[choice - 1]
@@ -171,7 +171,7 @@ def post_survey_action():
 
 def post_survey_clear_action():
     print("." * 80)
-    print("What would you like to do next? Choose option:")
+    print("\nWhat would you like to do next? Choose option:\n")
     display_options(POST_SURVEY_CLEAR_MENU)
     choice = get_user_choice(POST_SURVEY_CLEAR_MENU)
     select_option = POST_SURVEY_CLEAR_MENU[choice - 1]
@@ -185,7 +185,7 @@ def clear_last_entry():
         print("Your last entry has been cleared.")
     else:
         print("There are no entries to clear.")
-    post_survey_action()
+    post_survey_clear_action()
 
 # Fetching of survey data
 def get_survey_data():
