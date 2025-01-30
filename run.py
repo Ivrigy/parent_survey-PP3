@@ -92,6 +92,7 @@ POST_SURVEY_CLEAR_MENU = [
     MenuOptions(3, "Exit", "Exiting Program...", quit),
 ]
 
+# Clearing screen function for better readability and decluttering
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -101,6 +102,7 @@ def display_title(title):
     print(f"{'-' * 80}\n")
 
 def display_main_menu():
+    clear_screen() 
     display_title("MENU")
     display_options(MAIN_MENU)
     choice = get_user_choice([option.option for option in MAIN_MENU])
@@ -138,6 +140,7 @@ def update_worksheet(survey_responses,SURVEY):
         print(f"\033[91mError updating worksheet: {e}\033[0m") 
 
 def display_analysis_menu():
+    clear_screen() 
     display_title("ANALYSIS MENU")
     display_options(ANALYSIS_MENU)
     choice = get_user_choice(ANALYSIS_MENU)
@@ -167,6 +170,7 @@ def summary_statistic():
     post_survey_clear_action()
 
 def post_survey_action():
+    clear_screen() 
     print("." * 80)
     print("What would you like to do next? Choose option:")
     display_options(POST_SURVEY_MENU)
@@ -175,6 +179,7 @@ def post_survey_action():
     select_option.run_select_option()
 
 def post_survey_clear_action():
+    clear_screen() 
     print("." * 80)
     print("What would you like to do next? Choose option:")
     display_options(POST_SURVEY_CLEAR_MENU)
