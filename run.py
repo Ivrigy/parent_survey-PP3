@@ -122,5 +122,11 @@ MAIN_MENU = [
     MenuOptions(3, "Exit", "Exiting Program...", quit),
 ]
 
+ANALYSIS_MENU = [
+    MenuOptions(1, "Summary Statistic", "Entering statistics...\n", summary_statistic),
+    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
+
 if __name__ == "__main__":
     display_main_menu()
