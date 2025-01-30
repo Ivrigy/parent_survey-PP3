@@ -75,7 +75,11 @@ def update_worksheet(survey_responses,SURVEY):
 
     try:
         responses_list = list(survey_responses.values())
-        
+        worksheet.append_row(responses_list)
+        print("\nThank you, your answers have been recorded!\n".center(80))
+    except Exception as e:
+        print(f"\033[91mError updating worksheet: {e}\033[0m")
+
 
  
 
