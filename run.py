@@ -5,6 +5,8 @@
 import gspread
 from google.oauth2.service_account import Credentials 
 import os 
+import re
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -140,10 +142,16 @@ def get_survey_data():
     return headers, rows, total_answers
 
 def collect_email():
-    email = input("Please enter your email address:")
-    EMAIL_SHEET.append_row([email])
-    print("Thank you! Your email has been recorded.")
-    display_main_menu()
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    while True:
+        email = input("Please enter your email address: ")
+        if re.match(email_regex, email):
+            EMAIL_SHEET.append_row([email])
+            print("Thank you! Your email has been recorded.")
+            break
+        else:
+            print("Invalid email format. Please try again.")
+    display_main_menu() 
 
 
 def quit():
