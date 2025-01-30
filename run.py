@@ -2,18 +2,19 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+# Import Libraries necessary for functioning of code 
 import gspread
 from google.oauth2.service_account import Credentials 
 import os 
 import re
 
-
+# Defining scope with help of Love Sandwiches
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
     ]
-
+# Credentials improved after refractoring
 try:
     CREDS = Credentials.from_service_account_file('creds.json')
     SCOPED_CREDS = CREDS.with_scopes(SCOPE)
