@@ -82,7 +82,7 @@ def display_analysis_menu():
     display_options(ANALYSIS_MENU)
     choice = get_user_choice(ANALYSIS_MENU)
     select_option = ANALYSIS_MENU[choice - 1]
-    selected_option.run_selected_option()
+    select_option.run_select_option()
 
 def summary_statistic():
     display_title("SUMMARY STATISTIC")
