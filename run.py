@@ -115,7 +115,13 @@ def post_survey_action():
     select_option = POST_SURVEY_MENU[choice - 1]
     select_option.run_select_option()
 
-
+def post_survey_clear_action():
+    print("." * 80)
+    print("What would you like to do next? Choose option:")
+    display_options(POST_SURVEY_CLEAR_MENU)
+    choice = get_user_choice(POST_SURVEY_CLEAR_MENU)
+    select_option = POST_SURVEY_CLEAR_MENU[choice - 1]
+    select_option.run_select_option()
 
 def clear_last_entry():
     rows = SURVEY.get_all_values()
@@ -124,7 +130,7 @@ def clear_last_entry():
         print("Your last entry has been cleared.")
     else:
         print("There are no entries to clear")
-    post_survey_action()
+    post_survey_clear_action()
 
 def get_survey_data():
     data = SURVEY.get_all_values()
