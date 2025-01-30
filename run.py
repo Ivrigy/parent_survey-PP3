@@ -115,6 +115,8 @@ def post_survey_action():
     select_option = POST_SURVEY_MENU[choice - 1]
     select_option.run_select_option()
 
+
+
 def clear_last_entry():
     rows = SURVEY.get_all_values()
     if len(rows) > 1:
@@ -185,6 +187,11 @@ POST_SURVEY_MENU = [
     MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
     MenuOptions(3, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
     MenuOptions(4, "Exit", "Exiting Program...", quit),
+]
+
+POST_SURVEY_CLEAR_MENU = [
+    MenuOptions(1, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(2, "Exit", "Exiting Program...", quit),
 ]
 
 if __name__ == "__main__":
