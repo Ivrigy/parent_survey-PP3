@@ -96,10 +96,54 @@ POST_SURVEY_CLEAR_MENU = [
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
+# Caling title sections
 def display_title(title):
     print(f"\n{'-' * 80}")
     print(f"{title.center(80)}")
     print(f"{'-' * 80}\n")
+
+# Displays menu options
+def display_options(menu_options):
+    for option in menu_options:
+        print(f"\033[94m{option.index}\033[0m - {option.option}".ljust(40))
+        
+# Function that takes user inputed choice
+def get_user_choice(options):
+    while True:
+        try:
+            user_input = input(f"\nPlease enter your choice (\033[94m1-{len(options)}\033[0m):\n").strip()
+            if user_input.isdigit():
+                choice = int(user_input)
+                if 1 <= choice <= len(options):
+                    return choice
+                else:
+                    print(f"\033[91mError: Choose a number between 1 and {len(options)}.\033[0m")
+            else:
+                print("\033[91mEnter a valid number.\033[0m")
+        except Exception as e:
+            print(f"\033[91mAn unexpected error occurred: {e}\033[0m")
+
+# Function to enter your data into survey
+def access_survey():
+    display_title("SHARE YOUR EXPERIENCE")
+    survey_responses = {}
+    
+    for question, answers in QUESTION_OPTIONS.items():
+        print(f"\n{question}")
+        for index, answer in enumerate(answers, start=1):
+            print(f"{index} - {answer}")
+        
+        choice = get_user_choice(answers)
+        survey_responses[question] = answers[choice - 1]
+
+    print("\nYour feedback matters!\n".center(80))
+    for question, selected_answer in survey_responses.items():
+        print(question)
+        print((f"  --> {selected_answer.upper()}\n"))
+
+    update_worksheet(survey_responses, SURVEY_WORKSHEET)
+    post_survey_action(POST_SURVEY_MENU)
+
 
 def display_main_menu():
     clear_screen() 
@@ -109,27 +153,10 @@ def display_main_menu():
     select_option = MAIN_MENU[choice - 1] 
     select_option.run_select_option()
 
-def display_options(menu_options):
-    for option in menu_options:
-        print(f"\033[94m{option.index}\033[0m - {option.option}".ljust(40))
-        print()
 
 
-def access_survey():
-    display_title("SHARE YOUR EXPERIENCE")
-    survey_responses = {}
-    for question, answers in QUESTION_OPTIONS.items():
-        print(f"\n{question}")
-        for index, answer in enumerate(answers, start=1):
-            print(f"{index} - {answer}")
-        choice = get_user_choice(answers)
-        survey_responses[question] = answers[choice - 1]
-    print("\nYour feedback matters!\n".center(80))
-    for question, selected_answer in survey_responses.items():
-        print(question)
-        print((f"  --> {selected_answer.upper()}\n"))
-    update_worksheet(survey_responses, SURVEY)
-    post_survey_action()
+
+
 
 def update_worksheet(survey_responses,SURVEY):
     try:
@@ -221,21 +248,7 @@ def quit():
     exit()
 
 
-def get_user_choice(options):
-    while True:
-        try:
-            user_input = input(f"\nPlease enter your choice (\033[94m1-{len(options)}\033[0m):\n").strip() 
-            if user_input.isdigit(): 
-                choice = int(user_input)
-                if 1 <= choice <= len(options):
-                    return choice
-                else:
-                    print(f"\033[91mError: Choose a number between 1 and {len(options)}.\033[0m")
-            else:
-                print("\033[91mEnter a valid number.\033[0m")
-        except Exception as e:
-            # Handle any unexpected errors
-            print(f"\033[91mAn unexpected error occurred: {e}\033[0m")
+
 
 
 if __name__ == "__main__":
