@@ -221,7 +221,7 @@ def quit():
 # Main Logic of the program
 def display_main_menu():
     clear_screen()
-    display_title("MENU")
+    display_title("MAIN MENU")
     display_options(MAIN_MENU)
     choice = get_user_choice([option.option for option in MAIN_MENU])
     select_option = MAIN_MENU[choice - 1]
