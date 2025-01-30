@@ -78,7 +78,12 @@ def update_worksheet(survey_responses,SURVEY):
         print(f"\033[91mError updating worksheet: {e}\033[0m") 
 
 def display_analysis_menu():
-    print("Analysis menu displayed.")
+    display_title("ANALYSIS MENU")
+    display_options(ANALYSIS_MENU)
+    choice = get_user_choice(ANALYSIS_MENU)
+    select_option = ANALYSIS_MENU[choice - 1]
+    selected_option.run_selected_option()
+
 
 def quit():
     print("Goodbye!")
