@@ -23,6 +23,20 @@ EMAIL_SHEET = SHEET.worksheet("email_addresses")
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
+def display_title(title):
+    print(f"\n***** {title} *****".center(80) + "\n")
+
+def display_main_menu():
+    display_title("MENU")
+    display_options(MAIN_MENU)
+    choice = get_user_choice([option.option for option in MAIN_MENU])
+    select_option = MAIN_MENU[choice - 1] 
+    select_option.run_select_option()
+
+def display_options(menu_options):
+    for option in menu_options:
+        print(f"\033[94m{option.index}\033[0m - {option.option}".ljust(40))
+        print()
 
 class MenuOptions:
     def __init__(self, index, option, action_message, execute_action):
@@ -30,33 +44,46 @@ class MenuOptions:
         self.option = option
         self.action_message = action_message
         self.execute_action = execute_action
+       
+    def run_select_option(self):  # Renamed from run_selected_option to match your usage
+        print(self.action_message)
+        return self.execute_action()  
 
     def display_menu_options(self):
         return f"\033[94m{self.index}\033[0m - {self.option}"
- 
-    def run_select_option(self):  # Renamed from run_selected_option to match your usage
-        print(self.action_message)
-        return self.execute_action() 
 
 def access_survey():
     display_title("***** SHARE YOUR EXPERIENCE *****".center(80))
     survey_responses = {}
 
-for question, answer in QUESTION_OPTIONS.items():
+for question, answers in QUESTION_OPTIONS.items():
     print(f"\n{question}")
     for index, answer in enumerate(answers, 1):
         print(f"{index} - {answer}")
 
         choice = get_user_choice(answers)
         survey_responses[question] = answers[choice - 1]
+
     print("\nYour feedback matters!\n".center(80))
     for question, selected_answer in survey_responses.items():
         print(question)
         print((f"  --> {selected_answer.upper()}\n"))
-        update_worksheet(survey_responses,SURVEY)
+
+    update_worksheet(survey_responses,SURVEY)
+
+def update_worksheet(survey_responses,SURVEY):
+
+    try:
+        responses_list = list(survey_responses.values())
+        
+
+ 
 
 
-    
+
+
+
+   
 
 def display_analysis_menu():
     print("Analysis menu displayed.")
@@ -65,26 +92,6 @@ def quit():
     print("Goodbye!")
     exit()
 
-MAIN_MENU = [
-    MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
-    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
-    MenuOptions(3, "Exit", "Exiting Program...", quit),
-]
-
-def display_title(title):
-    print(f"\n***** {title} *****".center(80) + "\n")
-
-def display_main_menu():
-    display_title("MENU")
-    display_options(MAIN_MENU)
-    choice = get_user_choice(MAIN_MENU)
-    select_option = MAIN_MENU[choice - 1] 
-    select_option.run_select_option()
-
-def display_options(menu_options):
-    for option in menu_options:
-        print(f"\033[94m{option.index}\033[0m - {option.option}".ljust(40))
-        print()
 
 def get_user_choice(options):
     while True:
@@ -116,6 +123,12 @@ QUESTION_OPTIONS = {
      "How would you rate your current physical health?":[
          "Excellent", "Good", "Average", "Bad", "Terrible" ]  
 }
+
+MAIN_MENU = [
+    MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
 
 if __name__ == "__main__":
     display_main_menu()
