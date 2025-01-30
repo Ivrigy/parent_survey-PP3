@@ -128,7 +128,6 @@ def update_worksheet(survey_responses, worksheet):
 
 # Analysis Menu
 def display_analysis_menu():
-    clear_screen() 
     display_title("ANALYSIS MENU")
     display_options(ANALYSIS_MENU)
     choice = get_user_choice(ANALYSIS_MENU)
@@ -168,6 +167,14 @@ def post_survey_action():
     display_options(POST_SURVEY_MENU)
     choice = get_user_choice(POST_SURVEY_MENU)
     select_option = POST_SURVEY_MENU[choice - 1]
+    select_option.run_select_option()
+
+def post_survey_clear_action():
+    print("." * 80)
+    print("What would you like to do next? Choose option:")
+    display_options(POST_SURVEY_CLEAR_MENU)
+    choice = get_user_choice(POST_SURVEY_CLEAR_MENU)
+    select_option = POST_SURVEY_CLEAR_MENU[choice - 1]
     select_option.run_select_option()
 
 # Function that enables clearing of entry
