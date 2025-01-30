@@ -104,7 +104,7 @@ def access_survey():
     for question, answers in QUESTION_OPTIONS.items():
         print(f"\n{question}")
         for index, answer in enumerate(answers, start=1):
-            print(f"{index} - {answer}")
+            print(f"\033[94m{index}\033[0m - {answer}")
         
         choice = get_user_choice(answers)
         survey_responses[question] = answers[choice - 1]
