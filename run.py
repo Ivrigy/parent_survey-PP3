@@ -68,10 +68,9 @@ def access_survey():
     update_worksheet(survey_responses, SURVEY)
 
 def update_worksheet(survey_responses,SURVEY):
-
     try:
         responses_list = list(survey_responses.values())
-        worksheet.append_row(responses_list)
+        SURVEY.append_row(responses_list)
         print("\nThank you, your answers have been recorded!\n".center(80))
     except Exception as e:
         print(f"\033[91mError updating worksheet: {e}\033[0m") 
@@ -102,9 +101,9 @@ def get_user_choice(options):
 
 QUESTION_OPTIONS = {
     "How satisfied are you with your current management of day to day life?":[
-        "Very satisfied", "Satisfied", "Neither ", "Dissatisfied", "Very Dissatisfied"],
+        "Very satisfied", "Satisfied", "Neither", "Dissatisfied", "Very Dissatisfied"],
     "How satisfied are you with the communication to your ex-partner?":[
-      "Very satisfied", "Satisfied", "Neither ", "Dissatisfied", "Very Dissatisfied"],
+      "Very satisfied", "Satisfied", "Neither", "Dissatisfied", "Very Dissatisfied"],
     "How easy is for you to seek for additional help?":[
       "Very easy", "Easy", "Neither", "Difficult", "Very Difficult"],
      "How easy is for you to generate income and provide for your child/children?":[
