@@ -162,16 +162,18 @@ def summary_statistic():
 
 # Menu that comes after survey 
 def post_survey_action():
-    print("." * 80)
-    print("\nWhat would you like to do next? Choose option:\n")
+    # print("." * 80)
+    # print("\nWhat would you like to do next? Choose option:\n")
+    display_title("WHAT WOULD YOU LIKE TO DO NEXT?")
     display_options(POST_SURVEY_MENU)
     choice = get_user_choice(POST_SURVEY_MENU)
     select_option = POST_SURVEY_MENU[choice - 1]
     select_option.run_select_option()
 
 def post_survey_clear_action():
-    print("." * 80)
-    print("\nWhat would you like to do next? Choose option:\n")
+    # print("." * 80)
+    # print("\nWhat would you like to do next? Choose option:\n")
+    display_title("WHAT WOULD YOU LIKE TO DO NEXT?")
     display_options(POST_SURVEY_CLEAR_MENU)
     choice = get_user_choice(POST_SURVEY_CLEAR_MENU)
     select_option = POST_SURVEY_CLEAR_MENU[choice - 1]
