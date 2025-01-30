@@ -68,6 +68,7 @@ def access_survey():
         print(question)
         print((f"  --> {selected_answer.upper()}\n"))
     update_worksheet(survey_responses, SURVEY)
+    post_survey_action()
 
 def update_worksheet(survey_responses,SURVEY):
     try:
@@ -104,6 +105,16 @@ def summary_statistic():
         print(f"{'-' * 80}")
         for answer, percentage in answers.items():
             print(f"   --> {answer}: {percentage} %")
+    
+
+def post_survey_action():
+    print("." * 80)
+    print("What would you like to do next? Choose option:")
+    display_options(POST_SURVEY_MENU)
+    choice = get_user_choice(POST_SURVEY_MENU)
+    select_option = POST_SURVEY_MENU[choice - 1]
+    select_option.run_select_option()
+
 
 def get_survey_data():
     data = SURVEY.get_all_values()
