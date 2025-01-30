@@ -65,33 +65,6 @@ class MenuOptions:
         return f"\033[94m{self.index}\033[0m - {self.option}"
 
 
-# Defining different menu options that appear after different functions
-# Main and initaila menu
-MAIN_MENU = [
-    MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
-    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
-    MenuOptions(3, "Exit", "Exiting Program...", quit),
-]
-# Menu for statistics / analysis
-ANALYSIS_MENU = [
-    MenuOptions(1, "Summary Statistic", "Entering statistics...\n", summary_statistic),
-    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
-    MenuOptions(3, "Exit", "Exiting Program...", quit),
-]
-# Menu after submitting survey
-POST_SURVEY_MENU = [
-    MenuOptions(1, "Clear last survey entry", "Clearing last entry...\n", clear_last_entry),
-    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
-    MenuOptions(3, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
-    MenuOptions(4, "Exit", "Exiting Program...", quit),
-]
-# Menu after clearing your survey entry
-POST_SURVEY_CLEAR_MENU = [
-    MenuOptions(1, "Enter Email to get updates", "Collecting email address...\n", collect_email),
-    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
-    MenuOptions(3, "Exit", "Exiting Program...", quit),
-]
-
 # Clearing screen function for better readability and decluttering
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
@@ -141,31 +114,19 @@ def access_survey():
         print(question)
         print((f"  --> {selected_answer.upper()}\n"))
 
-    update_worksheet(survey_responses, SURVEY_WORKSHEET)
-    post_survey_action(POST_SURVEY_MENU)
+    update_worksheet(survey_responses, SURVEY)
+    post_survey_action()
 
-
-def display_main_menu():
-    clear_screen() 
-    display_title("MENU")
-    display_options(MAIN_MENU)
-    choice = get_user_choice([option.option for option in MAIN_MENU])
-    select_option = MAIN_MENU[choice - 1] 
-    select_option.run_select_option()
-
-
-
-
-
-
-def update_worksheet(survey_responses,SURVEY):
+# Updating google sheet with new user answers
+def update_worksheet(survey_responses, worksheet):
     try:
         responses_list = list(survey_responses.values())
-        SURVEY.append_row(responses_list)
+        worksheet.append_row(responses_list)
         print("\nThank you, your answers have been recorded!\n".center(80))
     except Exception as e:
-        print(f"\033[91mError updating worksheet: {e}\033[0m") 
+        print(f"\033[91mError updating worksheet: {e}\033[0m")
 
+# Analysis Menu
 def display_analysis_menu():
     clear_screen() 
     display_title("ANALYSIS MENU")
@@ -174,17 +135,21 @@ def display_analysis_menu():
     select_option = ANALYSIS_MENU[choice - 1]
     select_option.run_select_option()
 
+# Statistical calculation and display of results
 def summary_statistic():
     display_title("SUMMARY STATISTIC")
     headers, rows, total_answers = get_survey_data()
+    if total_answers == 0:
+        print("No survey responses found.")
+        return
     survey_data = {}
-    print(f"We recieved total of {total_answers} responses")
+    print(f"We received a total of {total_answers} responses.")
     for index, header in enumerate(headers):
         answers = [row[index] for row in rows]
         answer_count = {}
         for answer in answers:
-            answer_count[answer] = answer_count.get(answer,0) + 1
-        survey_data[header] = { 
+            answer_count[answer] = answer_count.get(answer, 0) + 1
+        survey_data[header] = {
             answer: round((count / total_answers) * 100, 1)
             for answer, count in answer_count.items()
         }
@@ -194,10 +159,10 @@ def summary_statistic():
         print(f"{'-' * 80}")
         for answer, percentage in answers.items():
             print(f"   --> {answer}: {percentage} %")
-    post_survey_clear_action()
+    post_survey_action()
 
+# Menu that comes after survey 
 def post_survey_action():
-    clear_screen() 
     print("." * 80)
     print("What would you like to do next? Choose option:")
     display_options(POST_SURVEY_MENU)
@@ -205,24 +170,17 @@ def post_survey_action():
     select_option = POST_SURVEY_MENU[choice - 1]
     select_option.run_select_option()
 
-def post_survey_clear_action():
-    clear_screen() 
-    print("." * 80)
-    print("What would you like to do next? Choose option:")
-    display_options(POST_SURVEY_CLEAR_MENU)
-    choice = get_user_choice(POST_SURVEY_CLEAR_MENU)
-    select_option = POST_SURVEY_CLEAR_MENU[choice - 1]
-    select_option.run_select_option()
-
+# Function that enables clearing of entry
 def clear_last_entry():
     rows = SURVEY.get_all_values()
     if len(rows) > 1:
         SURVEY.delete_rows(len(rows))
         print("Your last entry has been cleared.")
     else:
-        print("There are no entries to clear")
-    post_survey_clear_action()
+        print("There are no entries to clear.")
+    post_survey_action()
 
+# Fetching of survey data
 def get_survey_data():
     data = SURVEY.get_all_values()
     headers = data[0]
@@ -230,26 +188,64 @@ def get_survey_data():
     total_answers = len(rows)
     return headers, rows, total_answers
 
+# Function to collect emails from users
 def collect_email():
     email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     while True:
-        email = input("Please enter your email address: ")
+        email = input("Please enter your email address (or type 'back' to return to the main menu): ").strip()
+        if email.lower() == 'back':
+            display_main_menu()
+            return
         if re.match(email_regex, email):
-            EMAIL_SHEET.append_row([email])
+            EMAIL_WORKSHEET.append_row([email])
             print("Thank you! Your email has been recorded.")
             break
         else:
             print("Invalid email format. Please try again.")
-    display_main_menu() 
+    display_main_menu()
 
-
+# Quiting and exiting function
 def quit():
     print("Goodbye!")
     exit()
 
+# Main Logic of the program
+def display_main_menu():
+    clear_screen()
+    display_title("MENU")
+    display_options(MAIN_MENU)
+    choice = get_user_choice([option.option for option in MAIN_MENU])
+    select_option = MAIN_MENU[choice - 1]
+    select_option.run_select_option()
+
+# Defining different menu options that appear after different functions
+# Main and initaila menu
+MAIN_MENU = [
+    MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
+# Menu for statistics / analysis
+ANALYSIS_MENU = [
+    MenuOptions(1, "Summary Statistic", "Entering statistics...\n", summary_statistic),
+    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
+# Menu after submitting survey
+POST_SURVEY_MENU = [
+    MenuOptions(1, "Clear last survey entry", "Clearing last entry...\n", clear_last_entry),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
+    MenuOptions(3, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(4, "Exit", "Exiting Program...", quit),
+]
+# Menu after clearing your survey entry
+POST_SURVEY_CLEAR_MENU = [
+    MenuOptions(1, "Enter Email to get updates", "Collecting email address...\n", collect_email),
+    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
 
 
-
-
+# Enter and run the program
 if __name__ == "__main__":
     display_main_menu()
