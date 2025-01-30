@@ -105,6 +105,13 @@ def summary_statistic():
         for answer, percentage in answers.items():
             print(f"   --> {answer}: {percentage} %")
 
+def get_survey_data():
+    data = SURVEY.get_all_values()
+    headers = data[0]
+    rows = data[1:]
+    total_answers = len(rows)
+    return headers, rows, total_answers
+
 
 def quit():
     print("Goodbye!")
