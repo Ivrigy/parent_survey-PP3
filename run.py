@@ -204,7 +204,7 @@ def collect_email():
             display_main_menu()
             return
         if re.match(email_regex, email):
-            EMAIL_WORKSHEET.append_row([email])
+            EMAIL_SHEET.append_row([email])
             print("Thank you! Your email has been recorded.")
             break
         else:
