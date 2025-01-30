@@ -84,6 +84,27 @@ def display_analysis_menu():
     select_option = ANALYSIS_MENU[choice - 1]
     selected_option.run_selected_option()
 
+def summary_statistic():
+    display_title("SUMMARY STATISTIC")
+    headers, rows, total_answers = get_survey_data()
+    survey_data = {}
+    print(f"We recieved total of {total_answers} responses")
+    for index, header in enumerate(headers):
+        answers = [row[index] for row in rows]
+        answer_count = {}
+        for answer in answers:
+            answer_count[answer] = answer_count.get(answer,0) + 1
+        survey_data[header] = { 
+            answer: round((count / total_answers) * 100, 1)
+            for answer, count in answer_count.items()
+        }
+    for question, answers in survey_data.items():
+        print(f"\n{'-' * 80}")
+        print(f"{question.upper().center(80)}")
+        print(f"{'-' * 80}")
+        for answer, percentage in answers.items():
+            print(f"   --> {answer}: {percentage} %")
+
 
 def quit():
     print("Goodbye!")
