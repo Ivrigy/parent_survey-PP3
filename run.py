@@ -24,10 +24,9 @@ def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
 def display_title(title):
-    print(f"\n{'*' * 80}")
+    print(f"\n{'-' * 80}")
     print(f"{title.center(80)}")
-    print(f"{'*' * 80}\n")
-
+    print(f"{'-' * 80}\n")
 
 def display_main_menu():
     display_title("MENU")
@@ -56,11 +55,11 @@ class MenuOptions:
         return f"\033[94m{self.index}\033[0m - {self.option}"
 
 def access_survey():
-    display_title("SHARE YOUR EXPERIENCE".center(80))
+    display_title("SHARE YOUR EXPERIENCE")
     survey_responses = {}
     for question, answers in QUESTION_OPTIONS.items():
         print(f"\n{question}")
-        for index, answer in enumerate(answers, 1):
+        for index, answer in enumerate(answers, start=1):
             print(f"{index} - {answer}")
         choice = get_user_choice(answers)
         survey_responses[question] = answers[choice - 1]
