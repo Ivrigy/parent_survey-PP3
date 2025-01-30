@@ -14,6 +14,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
     ]
+
 # Credentials improved after refractoring
 try:
     CREDS = Credentials.from_service_account_file('creds.json')
@@ -48,6 +49,49 @@ QUESTION_OPTIONS = {
     ]
 }
 
+# Defining menu options and handling execution
+class MenuOptions:
+    def __init__(self, index, option, action_message, execute_action):
+        self.index = index
+        self.option = option
+        self.action_message = action_message
+        self.execute_action = execute_action
+
+    def run_select_option(self):
+        print(self.action_message)
+        return self.execute_action()
+
+    def display_menu_options(self):
+        return f"\033[94m{self.index}\033[0m - {self.option}"
+
+
+# Defining different menu options that appear after different functions
+# Main and initaila menu
+MAIN_MENU = [
+    MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
+# Menu for statistics / analysis
+ANALYSIS_MENU = [
+    MenuOptions(1, "Summary Statistic", "Entering statistics...\n", summary_statistic),
+    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
+# Menu after submitting survey
+POST_SURVEY_MENU = [
+    MenuOptions(1, "Clear last survey entry", "Clearing last entry...\n", clear_last_entry),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
+    MenuOptions(3, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(4, "Exit", "Exiting Program...", quit),
+]
+# Menu after clearing your survey entry
+POST_SURVEY_CLEAR_MENU = [
+    MenuOptions(1, "Enter Email to get updates", "Collecting email address...\n", collect_email),
+    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
+]
+
 def clear_screen():
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -68,19 +112,6 @@ def display_options(menu_options):
         print(f"\033[94m{option.index}\033[0m - {option.option}".ljust(40))
         print()
 
-class MenuOptions:
-    def __init__(self, index, option, action_message, execute_action):
-        self.index = index
-        self.option = option
-        self.action_message = action_message
-        self.execute_action = execute_action
-       
-    def run_select_option(self):  # Renamed from run_selected_option to match your usage
-        print(self.action_message)
-        return self.execute_action()  
-
-    def display_menu_options(self):
-        return f"\033[94m{self.index}\033[0m - {self.option}"
 
 def access_survey():
     display_title("SHARE YOUR EXPERIENCE")
@@ -201,32 +232,6 @@ def get_user_choice(options):
             # Handle any unexpected errors
             print(f"\033[91mAn unexpected error occurred: {e}\033[0m")
 
-
-
-MAIN_MENU = [
-    MenuOptions(1, "Enter Survey", "Entering single parent survey...\n", access_survey),
-    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
-    MenuOptions(3, "Exit", "Exiting Program...", quit),
-]
-
-ANALYSIS_MENU = [
-    MenuOptions(1, "Summary Statistic", "Entering statistics...\n", summary_statistic),
-    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
-    MenuOptions(3, "Exit", "Exiting Program...", quit),
-]
-
-POST_SURVEY_MENU = [
-    MenuOptions(1, "Clear last survey entry", "Clearing last entry...\n", clear_last_entry),
-    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
-    MenuOptions(3, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
-    MenuOptions(4, "Exit", "Exiting Program...", quit),
-]
-
-POST_SURVEY_CLEAR_MENU = [
-    MenuOptions(1, "Enter Email to get updates", "Collecting email address...\n", collect_email),
-    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
-    MenuOptions(3, "Exit", "Exiting Program...", quit),
-]
 
 if __name__ == "__main__":
     display_main_menu()
