@@ -105,7 +105,7 @@ def summary_statistic():
         print(f"{'-' * 80}")
         for answer, percentage in answers.items():
             print(f"   --> {answer}: {percentage} %")
-    
+    post_survey_clear_action()
 
 def post_survey_action():
     print("." * 80)
@@ -138,6 +138,12 @@ def get_survey_data():
     rows = data[1:]
     total_answers = len(rows)
     return headers, rows, total_answers
+
+def collect_email():
+    email = input("Please enter your email address:")
+    EMAIL_SHEET.append_row([email])
+    print("Thank you! Your email has been recorded.")
+    display_main_menu()
 
 
 def quit():
@@ -196,8 +202,9 @@ POST_SURVEY_MENU = [
 ]
 
 POST_SURVEY_CLEAR_MENU = [
-    MenuOptions(1, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
-    MenuOptions(2, "Exit", "Exiting Program...", quit),
+    MenuOptions(1, "Enter Email to get updates", "Collecting email address...\n", collect_email),
+    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(3, "Exit", "Exiting Program...", quit),
 ]
 
 if __name__ == "__main__":
