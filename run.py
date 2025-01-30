@@ -172,5 +172,12 @@ ANALYSIS_MENU = [
     MenuOptions(3, "Exit", "Exiting Program...", quit),
 ]
 
+POST_SURVEY_MENU = [
+   # MenuOptions(1, "Clear last survey entry", "Clearing last entry...\n", clear_last_entry),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
+    MenuOptions(3, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(4, "Exit", "Exiting Program...", quit),
+]
+
 if __name__ == "__main__":
     display_main_menu()
