@@ -10,6 +10,7 @@ import re
 import time
 
 
+
 # Defining scope with help of Love Sandwiches
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -50,6 +51,7 @@ QUESTION_OPTIONS = {
         "Excellent", "Good", "Average", "Bad", "Terrible"
     ]
 }
+
 
 # Defining menu options and handling execution
 class MenuOptions:
@@ -170,13 +172,14 @@ def summary_statistic():
 
 # Menu that comes after survey 
 def post_survey_action():
-    time.sleep(3)
+    time.sleep(10)
     clear_screen()
     display_title("WHAT WOULD YOU LIKE TO DO NEXT?")
     display_options(POST_SURVEY_MENU)
     choice = get_user_choice(POST_SURVEY_MENU)
     select_option = POST_SURVEY_MENU[choice - 1]
     select_option.run_select_option()
+    
 
 def post_survey_clear_action():
     # print("." * 80)
@@ -255,7 +258,7 @@ ANALYSIS_MENU = [
 # Menu after submitting survey
 POST_SURVEY_MENU = [
     MenuOptions(1, "Clear last survey entry", "Clearing last entry...\n", clear_last_entry),
-    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", display_analysis_menu),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", summary_statistic),
     MenuOptions(3, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
     MenuOptions(4, "Exit", "Exiting Program...", quit),
 ]
@@ -274,4 +277,5 @@ if __name__ == "__main__":
     print("We value your feedback and assure you identity will remain completely anonymous.")
     print("In case if you wish that we get back to you, please leave your Email ")
     time.sleep(8)
+    input()
     display_main_menu()
