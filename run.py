@@ -9,6 +9,12 @@ import os
 import re
 import time
 
+# UX for messages 
+def print_success(message):
+    print(f"\033[93m{message}\033[0m")
+
+def print_error(message):
+    print(f"\033[91m{message}\033[0m")
 
 # Defining scope with help of Love Sandwiches
 SCOPE = [
@@ -28,6 +34,8 @@ try:
 except Exception as e:
     print(f"\033[91mError connecting to Google Sheets: {e}\033[0m")
     exit()
+
+
 
 # Defining survey questions and answers
 QUESTION_OPTIONS = {
@@ -93,11 +101,11 @@ def get_user_choice(options):
                 if 1 <= choice <= len(options):
                     return choice
                 else:
-                    print(f"\033[91mError: Choose a number between 1 and {len(options)}.\033[0m")
+                    print_error(f"Error: Choose a number between 1 and {len(options)}")
             else:
-                print("\033[91mEnter a valid number.\033[0m")
+                print_error("Enter a valid number.")
         except Exception as e:
-            print(f"\033[91mAn unexpected error occurred: {e}\033[0m")
+            print_error(f"An unexpected error occurred: {e}")
 
 # Function to enter your data into survey
 def access_survey():
@@ -114,11 +122,11 @@ def access_survey():
         
         choice = get_user_choice(answers)
         survey_responses[question] = answers[choice - 1]
-    print("\nThank you for the feedback.")
+    print_success("\nThank you for the feedback.")
     time.sleep(2)
     clear_screen()
    
-    print("Here's a summary of your responses:\n")
+    print_success("Here's a summary of your responses:\n")
     for question, selected_answer in survey_responses.items():
         print(question)
         print((f"  --> {selected_answer.upper()}\n"))
@@ -131,9 +139,9 @@ def update_worksheet(survey_responses, worksheet):
     try:
         responses_list = list(survey_responses.values())
         worksheet.append_row(responses_list)
-        print("\nThank you, your answers have been recorded!")
+        print("\nYour answers have been recorded!")
     except Exception as e:
-        print(f"\033[91mError updating worksheet: {e}\033[0m")
+        print_error(f"Error updating worksheet: {e}")
 
 # Analysis Menu
 def display_analysis_menu():
@@ -150,10 +158,10 @@ def summary_statistic():
     display_title("SUMMARY STATISTIC")
     headers, rows, total_answers = get_survey_data()
     if total_answers == 0:
-        print("No survey responses found.")
+        print_error("No survey responses found.")
         return
     survey_data = {}
-    print(f"We received a total of {total_answers} responses.")
+    print_success(f"We received a total of {total_answers} responses.")
     for index, header in enumerate(headers):
         answers = [row[index] for row in rows]
         answer_count = {}
@@ -192,9 +200,9 @@ def clear_last_entry():
     rows = SURVEY.get_all_values()
     if len(rows) > 1:
         SURVEY.delete_rows(len(rows))
-        print("Your last entry has been cleared.")
+        print_success("Your last entry has been cleared.")
     else:
-        print("There are no entries to clear.")
+        print_error("There are no entries to clear.")
     post_survey_clear_action()
 
 # Fetching of survey data
@@ -215,18 +223,19 @@ def collect_email():
             return
         if re.match(email_regex, email):
             EMAIL_SHEET.append_row([email])
-            print("Thank you! Your email has been recorded.")
+            print_success("Thank you! Your email has been recorded.")
 
-            time.sleep(2)
+            time.sleep(3)
+            clear_screen()
             break
         else:
-            print("Invalid email format. Please try again.")
+            print_error("Invalid email format. Please try again.")
     display_main_menu()
 
 # Quiting and exiting function
 def quit():
     print("\nThank you for participating!")
-    print("Goodbye!")
+    print_success("Goodbye!")
     exit()
 
 # Main Logic of the program
@@ -267,9 +276,8 @@ POST_SURVEY_CLEAR_MENU = [
 
 # Enter and run the program
 if __name__ == "__main__":
-    print("\nHello dear single parent!\n")
-    print("Welcome to our online survey.")
+    print_success("\nHello single parent! Welcome to our online survey.\n")
     print("We value your feedback and assure you identity will remain completely anonymous.")
-    print("In case if you wish that we get back to you, please leave your Email ")
+    print("In case if you wish that we get back to you, please leave your Email. ")
     time.sleep(1)
     display_main_menu()
