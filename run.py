@@ -203,6 +203,8 @@ def clear_last_entry():
         print_success("Your last entry has been cleared.")
     else:
         print_error("There are no entries to clear.")
+    time.sleep(2)
+    clear_screen()    
     post_survey_clear_action()
 
 # Fetching of survey data
@@ -217,7 +219,7 @@ def get_survey_data():
 def collect_email():
     email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     while True:
-        email = input("Please enter your email address (or type 'back' to return to the main menu): ").strip()
+        email = input("Please enter your email address:").strip()
         if email.lower() == 'back':
             display_main_menu()
             return
@@ -277,7 +279,7 @@ POST_SURVEY_CLEAR_MENU = [
 
 # Enter and run the program
 if __name__ == "__main__":
-    print_success("\nHello single parent and welcome to our online survey.\n")
+    print_success("\nHello single parent and welcome to our online survey!\n")
     print("Your feedback is valuable and will remain completely anonymous.")
     print("If you rather have us follow up and contact you,")
     print("you may provide your email at the end of the survey.")
