@@ -261,10 +261,11 @@ ANALYSIS_MENU = [
 ]
 # Menu after submitting survey
 POST_SURVEY_MENU = [
-    MenuOptions(1, "Clear last survey entry", "Clearing last entry...\n", clear_last_entry),
-    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", summary_statistic),
-    MenuOptions(3, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
-    MenuOptions(4, "Exit", "Exiting Program...", quit),
+    MenuOptions(1, "Clear your last survey entry", "Clearing last entry...\n", clear_last_entry),
+    MenuOptions(2, "Enter Email to get updates", "Collecting email address...\n", collect_email),
+    MenuOptions(3, "Enter Analysis", "Entering Analysis of surveys...\n", summary_statistic),
+    MenuOptions(4, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(5, "Exit", "Exiting Program...", quit),
 ]
 # Menu after clearing your survey entry
 POST_SURVEY_CLEAR_MENU = [
@@ -276,8 +277,9 @@ POST_SURVEY_CLEAR_MENU = [
 
 # Enter and run the program
 if __name__ == "__main__":
-    print_success("\nHello single parent! Welcome to our online survey.\n")
-    print("We value your feedback and assure you identity will remain completely anonymous.")
-    print("In case if you wish that we get back to you, please leave your Email. ")
+    print_success("\nHello single parent and welcome to our online survey.\n")
+    print("Your feedback is valuable and will remain completely anonymous.")
+    print("If you rather have us follow up and contact you,")
+    print("you may provide your email at the end of the survey.")
     time.sleep(1)
     display_main_menu()
