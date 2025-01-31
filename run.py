@@ -9,7 +9,7 @@ import os
 import re
 import time
 
-# UX for messages 
+# UX/UI for messages 
 def print_success(message):
     print(f"\033[93m{message}\033[0m")
 
