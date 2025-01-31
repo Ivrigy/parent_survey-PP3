@@ -138,6 +138,9 @@ def update_worksheet(survey_responses, worksheet):
         responses_list = list(survey_responses.values())
         worksheet.append_row(responses_list)
         print("\nYour answers have been recorded!")
+
+        time.sleep(1) 
+
     except Exception as e:
         print_error(f"Error updating worksheet: {e}")
 
@@ -187,8 +190,6 @@ def post_survey_action():
     
 
 def post_survey_clear_action():
-    time.sleep(0.5)
-    clear_screen()
     display_title("WHAT WOULD YOU LIKE TO DO NEXT?")
     display_options(POST_SURVEY_CLEAR_MENU)
     choice = get_user_choice(POST_SURVEY_CLEAR_MENU)
