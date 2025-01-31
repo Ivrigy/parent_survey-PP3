@@ -220,7 +220,7 @@ def quit():
 
 # Main Logic of the program
 def display_main_menu():
-    clear_screen()
+    # clear_screen()
     display_title("MAIN MENU")
     display_options(MAIN_MENU)
     choice = get_user_choice([option.option for option in MAIN_MENU])
@@ -257,4 +257,8 @@ POST_SURVEY_CLEAR_MENU = [
 
 # Enter and run the program
 if __name__ == "__main__":
+    print("\nHello dear single parent! Welcome to to our survey\n")
+    print("Thank you for choosing to take part in our online survey.")
+    print("We value your feedback and assure you identity will remain completely anonymous.")
+    print("But, if you wish that we get back to you, you have an option to leave your Email ")
     display_main_menu()
