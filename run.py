@@ -10,7 +10,6 @@ import re
 import time
 
 
-
 # Defining scope with help of Love Sandwiches
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -116,7 +115,7 @@ def access_survey():
         choice = get_user_choice(answers)
         survey_responses[question] = answers[choice - 1]
     print("\nThank you for the feedback.")
-    time.sleep(4)
+    time.sleep(2)
     clear_screen()
    
     print("Here's a summary of your responses:\n")
@@ -132,7 +131,7 @@ def update_worksheet(survey_responses, worksheet):
     try:
         responses_list = list(survey_responses.values())
         worksheet.append_row(responses_list)
-        print("\nThank you, your answers have been recorded!\n")
+        print("\nThank you, your answers have been recorded!")
     except Exception as e:
         print(f"\033[91mError updating worksheet: {e}\033[0m")
 
@@ -146,6 +145,8 @@ def display_analysis_menu():
 
 # Statistical calculation and display of results
 def summary_statistic():
+    time.sleep(2)
+    clear_screen()
     display_title("SUMMARY STATISTIC")
     headers, rows, total_answers = get_survey_data()
     if total_answers == 0:
@@ -172,8 +173,6 @@ def summary_statistic():
 
 # Menu that comes after survey 
 def post_survey_action():
-    time.sleep(10)
-    clear_screen()
     display_title("WHAT WOULD YOU LIKE TO DO NEXT?")
     display_options(POST_SURVEY_MENU)
     choice = get_user_choice(POST_SURVEY_MENU)
@@ -182,8 +181,6 @@ def post_survey_action():
     
 
 def post_survey_clear_action():
-    # print("." * 80)
-    # print("\nWhat would you like to do next? Choose option:\n")
     display_title("WHAT WOULD YOU LIKE TO DO NEXT?")
     display_options(POST_SURVEY_CLEAR_MENU)
     choice = get_user_choice(POST_SURVEY_CLEAR_MENU)
@@ -220,7 +217,7 @@ def collect_email():
             EMAIL_SHEET.append_row([email])
             print("Thank you! Your email has been recorded.")
 
-            time.sleep(3)
+            time.sleep(2)
             break
         else:
             print("Invalid email format. Please try again.")
@@ -234,8 +231,6 @@ def quit():
 
 # Main Logic of the program
 def display_main_menu():
-    time.sleep(3)
-    clear_screen()
     display_title("MAIN MENU")
     display_options(MAIN_MENU)
     choice = get_user_choice([option.option for option in MAIN_MENU])
@@ -276,6 +271,5 @@ if __name__ == "__main__":
     print("Welcome to our online survey.")
     print("We value your feedback and assure you identity will remain completely anonymous.")
     print("In case if you wish that we get back to you, please leave your Email ")
-    time.sleep(8)
-    input()
+    time.sleep(1)
     display_main_menu()
