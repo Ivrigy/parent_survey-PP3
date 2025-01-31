@@ -7,7 +7,6 @@ import gspread
 from google.oauth2.service_account import Credentials 
 import os 
 import re
-import sys
 import time
 
 # UX/UI for messages 
@@ -123,15 +122,9 @@ def access_survey():
         
         choice = get_user_choice(answers)
         survey_responses[question] = answers[choice - 1]
-    print_success("Thank you for the feedback.")
-    time.sleep(2)
-
-    sys.stdout.flush()
-    time.sleep(1)
-
-    clear_screen()
+    print_success("\nThank you for the feedback.\n")
    
-    print_success("Here's a summary of your responses:\n")
+    print_success("\nHere's a summary of your responses:\n")
     for question, selected_answer in survey_responses.items():
         print(question)
         print((f"  --> {selected_answer.upper()}\n"))
@@ -194,6 +187,8 @@ def post_survey_action():
     
 
 def post_survey_clear_action():
+    time.sleep(0.5)
+    clear_screen()
     display_title("WHAT WOULD YOU LIKE TO DO NEXT?")
     display_options(POST_SURVEY_CLEAR_MENU)
     choice = get_user_choice(POST_SURVEY_CLEAR_MENU)
