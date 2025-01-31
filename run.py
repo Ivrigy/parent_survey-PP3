@@ -215,6 +215,7 @@ def collect_email():
 
 # Quiting and exiting function
 def quit():
+    print("\nThank you for participating!")
     print("Goodbye!")
     exit()
 
@@ -257,7 +258,7 @@ POST_SURVEY_CLEAR_MENU = [
 
 # Enter and run the program
 if __name__ == "__main__":
-    print("\nHello dear single parent! Welcome to to our survey\n")
+    print("\nHello dear single parent!\n")
     print("Thank you for choosing to take part in our online survey.")
     print("We value your feedback and assure you identity will remain completely anonymous.")
     print("But, if you wish that we get back to you, you have an option to leave your Email ")
