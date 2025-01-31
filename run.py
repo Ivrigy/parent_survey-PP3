@@ -110,8 +110,11 @@ def access_survey():
         
         choice = get_user_choice(answers)
         survey_responses[question] = answers[choice - 1]
-
-    print("\nYour feedback matters!\n".center(80))
+    print("\nThank you for the feedback. Your responses are recorded")
+    time.sleep(3)
+    clear_screen()
+   
+    print("Here's a summary of your responses:\n")
     for question, selected_answer in survey_responses.items():
         print(question)
         print((f"  --> {selected_answer.upper()}\n"))
@@ -210,6 +213,10 @@ def collect_email():
         if re.match(email_regex, email):
             EMAIL_SHEET.append_row([email])
             print("Thank you! Your email has been recorded.")
+
+            time.sleep(3)
+            clear_screen()
+            
             break
         else:
             print("Invalid email format. Please try again.")
@@ -223,7 +230,7 @@ def quit():
 
 # Main Logic of the program
 def display_main_menu():
-    time.sleep(8)
+    time.sleep(3)
     clear_screen()
     display_title("MAIN MENU")
     display_options(MAIN_MENU)
@@ -265,4 +272,6 @@ if __name__ == "__main__":
     print("Welcome to our online survey.")
     print("We value your feedback and assure you identity will remain completely anonymous.")
     print("In case if you wish that we get back to you, please leave your Email ")
+    time.sleep(8)
+    clear_screen()
     display_main_menu()
