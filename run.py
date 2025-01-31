@@ -272,8 +272,9 @@ POST_SURVEY_MENU = [
 # Menu after clearing your survey entry
 POST_SURVEY_CLEAR_MENU = [
     MenuOptions(1, "Enter Email to get updates", "Collecting email address...\n", collect_email),
-    MenuOptions(2, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
-    MenuOptions(3, "Exit", "Exiting Program...", quit),
+    MenuOptions(2, "Enter Analysis", "Entering Analysis of surveys...\n", summary_statistic),
+    MenuOptions(3, "Back to Main Menu", "Entering main menu...\n", display_main_menu),
+    MenuOptions(4, "Exit", "Exiting Program...", quit),
 ]
 
 
