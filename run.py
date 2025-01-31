@@ -100,18 +100,21 @@ def get_user_choice(options):
 
 # Function to enter your data into survey
 def access_survey():
+    time.sleep(2)
+    clear_screen()
     display_title("SHARE YOUR EXPERIENCE")
     survey_responses = {}
     
     for question, answers in QUESTION_OPTIONS.items():
         print(f"\n{question}")
+        print()
         for index, answer in enumerate(answers, start=1):
             print(f"\033[94m{index}\033[0m - {answer}")
         
         choice = get_user_choice(answers)
         survey_responses[question] = answers[choice - 1]
-    print("\nThank you for the feedback. Your responses are recorded")
-    time.sleep(3)
+    print("\nThank you for the feedback.")
+    time.sleep(4)
     clear_screen()
    
     print("Here's a summary of your responses:\n")
@@ -127,7 +130,7 @@ def update_worksheet(survey_responses, worksheet):
     try:
         responses_list = list(survey_responses.values())
         worksheet.append_row(responses_list)
-        print("\nThank you, your answers have been recorded!\n".center(80))
+        print("\nThank you, your answers have been recorded!\n")
     except Exception as e:
         print(f"\033[91mError updating worksheet: {e}\033[0m")
 
@@ -167,8 +170,8 @@ def summary_statistic():
 
 # Menu that comes after survey 
 def post_survey_action():
-    # print("." * 80)
-    # print("\nWhat would you like to do next? Choose option:\n")
+    time.sleep(3)
+    clear_screen()
     display_title("WHAT WOULD YOU LIKE TO DO NEXT?")
     display_options(POST_SURVEY_MENU)
     choice = get_user_choice(POST_SURVEY_MENU)
@@ -215,8 +218,6 @@ def collect_email():
             print("Thank you! Your email has been recorded.")
 
             time.sleep(3)
-            clear_screen()
-            
             break
         else:
             print("Invalid email format. Please try again.")
@@ -273,5 +274,4 @@ if __name__ == "__main__":
     print("We value your feedback and assure you identity will remain completely anonymous.")
     print("In case if you wish that we get back to you, please leave your Email ")
     time.sleep(8)
-    clear_screen()
     display_main_menu()
