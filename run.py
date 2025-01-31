@@ -122,7 +122,8 @@ def access_survey():
         
         choice = get_user_choice(answers)
         survey_responses[question] = answers[choice - 1]
-    print_success("\nThank you for the feedback.")
+    print_success("Thank you for the feedback.")
+
     time.sleep(2)
     clear_screen()
    
